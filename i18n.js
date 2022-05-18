@@ -11,6 +11,7 @@
 var vsprintf = require("sprintf-js").vsprintf,
 		fs = require("fs"),
 		path = require("path"),
+    		crypto = require("crypto"),
 		debugLog = require('debug')('i18n-2:log'),
     	debugWarn = require('debug')('i18n-2:warn'),
     	debugError = require('debug')('i18n-2:err');
@@ -153,7 +154,10 @@ i18n.prototype = {
 	},
 
 	__: function () {
-		var msg = this.translate(this.locale, arguments[0]);
+		
+		var langhash = crypto.createHash('md5').update(arguments[0]).digest('hex').toString();
+
+		var msg = `<span id="langhash" class="translatable">` + this.translate(this.locale, arguments[0]) + `</span>`;
 
 		if (arguments.length > 1) {
 			msg = vsprintf(msg, Array.prototype.slice.call(arguments, 1));
