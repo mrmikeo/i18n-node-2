@@ -155,9 +155,9 @@ i18n.prototype = {
 
 	__: function () {
 		
-		var langhash = crypto.createHash('md5').update(arguments[0]).digest('hex').toString();
+		//var langhash = crypto.createHash('md5').update(arguments[0]).digest('hex').toString();
 
-		var msg = `<span id="langhash" class="translatable">` + this.translate(this.locale, arguments[0]) + `</span>`;
+		var msg = this.translate(this.locale, arguments[0]);
 
 		if (arguments.length > 1) {
 			msg = vsprintf(msg, Array.prototype.slice.call(arguments, 1));
